@@ -1,0 +1,17 @@
+{
+  "name": "Hacklab Pro",
+  "short_name": "HacklabPro",
+  "description": "Professional Investigation & Penetration Testing Suite",
+  "start_url": "HacklabPro.html",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/MaxVR68/hacklab-pro/main/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
