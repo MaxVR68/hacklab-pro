@@ -372,13 +372,22 @@ body::after {
                 <p id="modalPurpose">Scopo...</p>
                 
                 <h3>Comandi Base</h3>
-                <div class="terminal" id="modalCommands">
-                    <!-- Comandi iniettati qui -->
-                </div>
+                <div id="modalContent" class="terminal" style="padding: 1.5rem; text-align: left;">
+                <!-- Dettagli app caricati via JS -->
             </div>
-            <div class="modal-footer">
-                <button class="btn-install" id="btnInstall">INSTALLA APK</button>
+
+            <div class="disclaimer-box" style="margin: 0 1.5rem 1.5rem; border-color: var(--electric-blue); background: rgba(0, 229, 255, 0.05);">
+                <h4 style="color: var(--electric-blue); margin-bottom: 0.5rem; font-size: 0.9rem;">🧭 GUIDA RAPIDA ALL'INSTALLAZIONE</h4>
+                <ul style="font-size: 0.8rem; line-height: 1.5; color: #fff; padding-left: 1rem;">
+                    <li><strong>FASE 1:</strong> Clicca su "INSTALLA PAYLOAD" e attendi il download.</li>
+                    <li><strong>FASE 2:</strong> Apri la barra notifiche del telefono e CLICCA sul file scaricato.</li>
+                    <li><strong>FASE 3:</strong> Se visualizzi <em>"App non compatibile"</em>, significa che il tool è una versione 32-bit (legacy) e il tuo telefono moderno è solo 64-bit. In tal caso, dovresti cercare un'app simile nella lista.</li>
+                </ul>
             </div>
+
+            <button id="btnInstall" class="cat-btn" style="width: calc(100% - 3rem); margin: 0 1.5rem 1.5rem; justify-content: center; font-weight: bold;">
+                INSTALLA PAYLOAD
+            </button>
         </div>
     </div>
 
@@ -5313,7 +5322,7 @@ function openModal(app) {
             alertDiv.style.marginTop = '15px';
             alertDiv.style.borderColor = '#ff4444';
             alertDiv.style.color = '#fff';
-            alertDiv.innerHTML = `<strong>⚠️ INSTALLAZIONE ANDROID:</strong> Il pacchetto binario <code>${app.apk_file}</code> è in download sul tuo device. Apri la notifica al termine.<br><br>👉 <em>Se il sistema OS blocca l'azione</em>, clicca su <strong>Impostazioni</strong> nel popup di avviso e abilita lo switch <strong>"Consenti da questa fonte" (Origini Sconosciute)</strong>.`;
+            alertDiv.innerHTML = `<strong>👇 AZIONE RICHIESTA ORA:</strong><br><br>Il file <code>${app.apk_file}</code> è stato scaricato. <strong>Controlla subito la barra delle notifiche</strong> del tuo telefono e CLICCA sul file scaricato per avviare l'installazione.<br><br>👉 <em>Se Android blocca l'azione</em>, seleziona <strong>"Dettagli"</strong> o <strong>"Impostazioni"</strong> nel popup e attiva <strong>"Consenti da questa fonte"</strong>.`;
             
             newBtn.after(alertDiv);
             
@@ -5343,7 +5352,6 @@ function openModal(app) {
     });
 
     sfx.open();
-    document.getElementById('appGrid').style.opacity = '0.3'; // Effetto focus
     document.getElementById('appModal').classList.add('active');
     history.pushState({ modal: 'app' }, '');
 }
