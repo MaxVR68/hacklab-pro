@@ -204,17 +204,19 @@ body::after {
 
 .fav-btn {
     position: absolute;
-    top: 10px; right: 10px;
-    font-size: 1.6rem;
-    color: rgba(255,255,255,0.15);
+    top: 8px; right: 8px;
+    font-size: 2.2rem; /* Ancora più grande */
+    color: rgba(255,255,255,0.1);
     cursor: pointer;
-    transition: 0.3s;
-    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 50;
+    line-height: 1;
 }
-.fav-btn:hover { transform: scale(1.2); color: rgba(255,255,255,0.5); }
+.fav-btn:hover { transform: scale(1.3); color: rgba(255,255,255,0.4); }
 .fav-btn.active {
-    color: var(--gold);
-    text-shadow: 0 0 15px var(--gold);
+    color: #ffb300; /* Amber vibrante */
+    text-shadow: 0 0 20px #ffb300, 0 0 40px rgba(255, 179, 0, 0.4);
+    transform: scale(1.1);
 }
 
 .app-icon { font-size: 3rem; margin-bottom: 0.8rem; filter: drop-shadow(0 0 10px rgba(0, 163, 255, 0.2)); }
