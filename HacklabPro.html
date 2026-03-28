@@ -297,7 +297,7 @@ body::after {
 .legal-footer a:hover { color: #fff; }
 
 @media (max-width: 600px) {
-    .app-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 1rem; }
+    .app-grid { grid-template-columns: 1fr; gap: 1rem; padding: 1rem; }
     .app-card { padding: 1.5rem 0.8rem; }
     .fav-btn { font-size: 1.4rem; top: 5px; right: 5px; }
 }
@@ -5280,7 +5280,19 @@ function openModal(app) {
     
     const btnInstall = document.getElementById('btnInstall');
     
-    // Rimuovi precedenti listener duplicati su riavvio clone node
+    // Rimuovi avvisi precedenti se presenti
+    let oldAlert = document.getElementById('androidInstallAlert');
+    if (oldAlert) oldAlert.remove();
+    
+    // Ripristino forzato stato pulsante (factory reset)
+    btnInstall.innerHTML = 'INSTALLA PAYLOAD';
+    btnInstall.style.borderColor = '';
+    btnInstall.style.color = '';
+    btnInstall.style.backgroundColor = '';
+    btnInstall.style.animation = 'none';
+    btnInstall.style.pointerEvents = 'auto';
+
+    // Clona per pulire vecchi listener
     const newBtn = btnInstall.cloneNode(true);
     btnInstall.parentNode.replaceChild(newBtn, btnInstall);
 
@@ -5288,36 +5300,28 @@ function openModal(app) {
     newBtn.addEventListener('click', () => {
         sfx.install();
         
-        // Formattazione visiva stile hacking
+        // Stato di caricamento
         newBtn.innerHTML = '<span style="animation: pulseText 1s infinite;">SPINGENDO PAYLOAD...</span>';
         newBtn.style.borderColor = '#ff4444';
         newBtn.style.color = '#ff4444';
         newBtn.style.pointerEvents = 'none'; 
         
-        // Delay di suspense UX
         setTimeout(() => {
-            let oldAlert = document.getElementById('androidInstallAlert');
-            if (oldAlert) oldAlert.remove();
-
             const alertDiv = document.createElement('div');
             alertDiv.id = 'androidInstallAlert';
+            alertDiv.className = 'terminal';
             alertDiv.style.marginTop = '15px';
-            alertDiv.style.padding = '12px';
-            alertDiv.style.backgroundColor = 'rgba(255, 68, 68, 0.1)';
-            alertDiv.style.borderLeft = '3px solid #ff4444';
+            alertDiv.style.borderColor = '#ff4444';
             alertDiv.style.color = '#fff';
-            alertDiv.style.fontSize = '0.85rem';
-            alertDiv.style.lineHeight = '1.6';
-            alertDiv.innerHTML = `<strong>⚠️ INSTALLAZIONE ANDROID:</strong> Il pacchetto binario <code>${app.apk_file}</code> è in download sul tuo device. Apri la notifica al termine.<br><br>👉 <em>Se il sistema OS blocca l'azione</em>, clicca su <strong>Impostazioni</strong> nel popup di avviso e abilita lo switch <strong>"Consenti da questa fonte" (Origini Sconosciute)</strong> per sovrascrivere il blocco di sicurezza di Android.`;
+            alertDiv.innerHTML = `<strong>⚠️ INSTALLAZIONE ANDROID:</strong> Il pacchetto binario <code>${app.apk_file}</code> è in download sul tuo device. Apri la notifica al termine.<br><br>👉 <em>Se il sistema OS blocca l'azione</em>, clicca su <strong>Impostazioni</strong> nel popup di avviso e abilita lo switch <strong>"Consenti da questa fonte" (Origini Sconosciute)</strong>.`;
             
-            document.querySelector('.terminal').after(alertDiv);
+            newBtn.after(alertDiv);
             
             newBtn.innerHTML = 'VERIFICA NOTIFICHE OS';
             newBtn.style.animation = 'none';
             newBtn.style.backgroundColor = 'rgba(255, 68, 68, 0.1)';
             
-            // Trigger nativo del Package Installer di Android / Download Manager tramite finestra locale
-            // Utilizziamo un link silente per forzare il download su sistemi con restrizioni content://
+            // Trigger download
             const link = document.createElement('a');
             link.href = `${REMOTE_APK_BASE}${app.apk_file}`;
             link.download = app.apk_file;
@@ -5325,11 +5329,21 @@ function openModal(app) {
             link.click();
             document.body.removeChild(link);
             
+            // AUTO-RESET: Permette di riprovare dopo 5 secondi o installare altro
+            setTimeout(() => {
+                newBtn.innerHTML = 'RI-PROVA INSTALLAZIONE';
+                newBtn.style.pointerEvents = 'auto';
+                newBtn.style.borderColor = '';
+                newBtn.style.color = '';
+                newBtn.style.backgroundColor = '';
+            }, 6000);
+
             setTimeout(() => playTone(1500, 'sine', 0.1, 0.05), 500);
         }, 1200);
     });
 
     sfx.open();
+    document.getElementById('appGrid').style.opacity = '0.3'; // Effetto focus
     document.getElementById('appModal').classList.add('active');
     history.pushState({ modal: 'app' }, '');
 }
