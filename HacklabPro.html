@@ -99,18 +99,25 @@ body::after {
     letter-spacing: 2px;
 }
 
-.boot-disclaimer {
-    background: rgba(0, 163, 255, 0.03);
+.boot-disclaimer, .disclaimer-box {
+    background: rgba(0, 163, 255, 0.05);
     border: 1px solid rgba(0, 229, 255, 0.2);
     border-radius: 4px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
     text-align: left;
-    font-size: 0.8rem;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    line-height: 1.6;
     color: #c9d1d9;
-    border-left: 4px solid var(--electric-blue);
+    border-left: 5px solid var(--electric-blue);
 }
+.disclaimer-box.red {
+    border-left-color: #ff4444;
+    background: rgba(255, 68, 68, 0.05);
+    border-color: rgba(255, 68, 68, 0.2);
+}
+.disclaimer-box strong { color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+.disclaimer-box.red strong { color: #ff6666; }
 
 .boot-btn {
     background: var(--investigator-blue);
@@ -249,26 +256,15 @@ body::after {
 .modal-body h3 { color: var(--electric-blue); font-family: var(--font-code); margin-bottom: 0.5rem; font-size: 1rem; text-transform: uppercase; }
 .modal-body p { margin-bottom: 1.2rem; font-size: 0.9rem; line-height: 1.5; color: var(--text-main); }
 
-/* Legal Special Classes */
+/* Cleanup unused legal-content classes to keep CSS clean */
 .legal-content h2 { 
-    color: #ff4444; 
+    color: #fff; 
     font-family: var(--font-code); 
-    font-size: 1.4rem; 
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+    font-size: 1.2rem; 
+    margin-bottom: 1.2rem;
+    text-align: center;
+    letter-spacing: 2px;
 }
-.warning-box {
-    background: rgba(255, 68, 68, 0.08);
-    border: 1px solid rgba(255, 68, 68, 0.2);
-    border-left: 4px solid #ff4444;
-    padding: 1.2rem;
-    margin: 1.5rem 0;
-    font-family: var(--font-code);
-}
-.warning-box strong { color: #ff6666; }
-.legal-intro { font-style: italic; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem; }
-.legal-list { list-style: square; padding-left: 1.5rem; margin-bottom: 1.5rem; }
-.legal-list li { margin-bottom: 0.8rem; font-size: 0.85rem; color: var(--text-main); }
 
 .terminal {
     background: #000; border: 1px solid var(--border-color);
@@ -391,28 +387,24 @@ body::after {
         <div class="modal-content legal-content">
             <button class="close-modal" id="closeLegal">&times;</button>
             <div class="modal-body">
-                <h2>⚠️ PROTOCOLLO DI RESPONSABILITÀ</h2>
-                <div class="legal-intro">
-                    Ultimo aggiornamento: 28/03/2026 - Versione 4.0.2 Professional Suite.
-                </div>
+                <h2>PROTOCOLLO DI RESPONSABILITÀ</h2>
                 
-                <p>L'accesso e l'utilizzo di <strong>Hacklab Pro</strong> implicano l'accettazione incondizionata delle seguenti clausole di utilizzo conforme:</p>
-                
-                <ul class="legal-list">
-                    <li><strong>Scopo:</strong> ESCLUSIVAMENTE didattico, di studio, di test di sicurezza professionale e per l'audit dei propri sistemi.</li>
-                    <li><strong>Proprietà:</strong> È consentito l'uso solo su reti e dispositivi di proprietà o sotto esplicita autorizzazione scritta del titolare.</li>
-                    <li><strong>Proibizione:</strong> È vietato l'uso per intercettazione, danneggiamento o accesso abusivo a terzi.</li>
-                </ul>
-
-                <div class="warning-box">
-                    <strong>⚠️ RIFERIMENTI CODICE PENALE (GIURISDIZIONE ITALIANA):</strong>
-                    <br><br>
-                    • <strong>Art. 615-ter:</strong> Accesso abusivo ad un sistema informatico o telematico.<br>
-                    • <strong>Art. 615-quater:</strong> Detenzione e diffusione abusiva di codici di accesso.<br>
-                    • <strong>Art. 615-quinquies:</strong> Diffusione di apparecchiatue, dispositivi o programmi diretti a danneggiare sistemi.
+                <div class="disclaimer-box">
+                    <strong>⚠️ AVVERTENZA PROPRIETÀ:</strong> Tutte le applicazioni in Hacklab Pro sono fornite esclusivamente a scopo didattico. È consentito l'uso solo su reti e dispositivi di proprietà o sotto esplicita autorizzazione scritta del titolare.
                 </div>
 
-                <p style="font-size: 0.8rem; opacity: 0.7;">Utilizzando questo software, l'utente esonera gli sviluppatori e i distributori da ogni responsabilità civile e penale derivante dall'uso improprio degli strumenti forniti.</p>
+                <div class="disclaimer-box">
+                    <strong>🚫 DIVIETO DI ABUSO:</strong> È severamente vietato l'uso per intercettazione, danneggiamento o accesso abusivo a sistemi informatici di terzi. L'utente si assume la piena responsabilità delle proprie azioni.
+                </div>
+
+                <div class="disclaimer-box red">
+                    <strong>⚖️ RIFERIMENTI CODICE PENALE:</strong>
+                    L'accesso abusivo a un sistema informatico è un reato penale (Art. 615-ter C.P.). Sono punibili anche la detenzione di codici di accesso (Art. 615-quater) e la diffusione di programmi dannosi (Art. 615-quinquies).
+                </div>
+
+                <div class="disclaimer-box" style="border-left-color: var(--text-muted); opacity: 0.7; font-style: italic;">
+                    <strong>ℹ️ ESCLUSIONE RESPONSABILITÀ:</strong> Gli sviluppatori e i distributori declinano ogni responsabilità per l'uso improprio, illegale o malevolo degli strumenti qui forniti.
+                </div>
             </div>
         </div>
     </div>
