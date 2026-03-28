@@ -5072,6 +5072,13 @@ function toggleFavorite(e, appName) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Registrazione Service Worker per PWA Professional
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('PWA: Protocollo Caricato', reg))
+            .catch(err => console.error('PWA: Errore Protocollo', err));
+    }
+
     const bootOverlay = document.getElementById('bootOverlay');
     const bootBtn = document.getElementById('bootBtn');
 
